@@ -10,10 +10,16 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:lab2_213158/main.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+
+void main() async{
+  // Обезбедете инициализација на Firebase пред тестирање
+  TestWidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(); // Инициализација на Firebase
+
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(MyApp());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

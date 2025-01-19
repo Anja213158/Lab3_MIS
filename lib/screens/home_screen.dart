@@ -10,6 +10,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late Future<List<String>> jokeTypes;
+  Set<String> favoriteJokes = {};
 
   @override
   void initState() {
@@ -45,6 +46,16 @@ class _HomeScreenState extends State<HomeScreen> {
               itemBuilder: (context, index) {
                 return JokeCard(
                   type: types[index],
+                  isFavorite: favoriteJokes.contains(types[index]), // Проверува дали е омилена
+                  onFavorite: () {
+                    setState(() {
+                      if (favoriteJokes.contains(types[index])) {
+                        favoriteJokes.remove(types[index]); // Отстрани од омилени
+                      } else {
+                        favoriteJokes.add(types[index]); // Додај во омилени
+                      }
+                    });
+                  },
                   onTap: () {
                     Navigator.push(
                       context,
